@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 '''
 Задание №1
@@ -26,13 +26,21 @@ from flask import Flask
 выводить на экран ее длину.
 '''
 
+'''
+Задание №5
+Написать функцию, которая будет выводить на экран HTML
+страницу с заголовком "Моя первая HTML страница" и
+абзацем "Привет, мир!".
+'''
+
+
 app = Flask(__name__)
 
 
 @app.route('/')
-@app.route('/index/')
+@app.route('/index.html')
 def index():
-    return 'Hello world'
+    return render_template('index.html')
 
 
 @app.route('/about/')
