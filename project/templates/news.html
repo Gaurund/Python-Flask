@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Новости</title>
+    <link rel="stylesheet" href="../static/css/news.css">
+</head>
+<body>
+    <h1>Новости</h1>
+    <div id="news">
+
+    {% for news in context %}
+        <div class="item">
+            <div class="title">
+                {{ news.title }}
+            </div>
+            <div class="paper">
+                {{ news.paper }}
+            </div>
+            <div class="date">
+                {{ news.date }}
+            </div>
+        </div>
+    {% endfor %}
+     </div>
+</body>
+</html>

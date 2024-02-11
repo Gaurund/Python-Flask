@@ -1,0 +1,19 @@
+.item {
+    padding: 5px;
+    border-bottom: black 2px dotted;
+}
+
+.title {
+    font-size: x-large;
+    text-transform: capitalize;
+    padding: 20px 0 10px 0;
+}
+
+.paper {
+    font-style: italic;
+}
+
+.date {
+    padding: 5px 30px;
+    color: gray;
+ }
