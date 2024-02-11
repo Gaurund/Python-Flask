@@ -20,6 +20,12 @@ from flask import Flask
 числа и выводить на экран их сумму.
 '''
 
+'''
+Задание №4
+Написать функцию, которая будет принимать на вход строку и
+выводить на экран ее длину.
+'''
+
 app = Flask(__name__)
 
 
@@ -42,6 +48,11 @@ def contacts():
 @app.route('/<int:number1>+<int:number2>')
 def sum_numbers(number1, number2):
     return str(number1 + number2)
+
+
+@app.route('/<string:line>')
+def length(line):
+    return str(len(line))
 
 
 if __name__ == '__main__':
