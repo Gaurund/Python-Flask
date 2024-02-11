@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Home{% endblock %}</title>
+</head>
+<body>
+    {% block header %}
+    <header>
+        Моя шапка
+    </header>
+    {% endblock %}
+    {% block menu %}
+    <div class="menu">
+        <a href="{{ url_for('about') }}">Обо мне</a>
+        <a href="{{ url_for('contacts') }}">Контакты</a>
+    </div>
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+    {% block footer %}
+    <div class="footer">
+        Подвал
+    </div>
+    {% endblock %}
+</body>
+</html>

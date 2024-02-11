@@ -55,33 +55,43 @@ from flask import Flask, render_template
 контекст.
 '''
 
+'''
+Задание №8
+Создать базовый шаблон для всего сайта, содержащий
+общие элементы дизайна (шапка, меню, подвал), и
+дочерние шаблоны для каждой отдельной страницы.
+Например, создать страницу "О нас" и "Контакты",
+используя базовый шаблон.
+'''
+
+
 app = Flask(__name__)
 
 
 @app.route('/')
 @app.route('/index.html')
 def index():
-    return render_template('index.html')
+    return render_template('base.html')
 
 
 @app.route('/about/')
 def about():
-    return "About me"
+    return render_template('about.html')
 
 
 @app.route('/contacts/')
 def contacts():
-    return "My contacts"
+    return render_template('contacts.html')
 
 
-@app.route('/<int:number1>+<int:number2>')
-def sum_numbers(number1, number2):
-    return str(number1 + number2)
+# @app.route('/<int:number1>+<int:number2>')
+# def sum_numbers(number1, number2):
+#     return str(number1 + number2)
 
 
-@app.route('/<string:line>')
-def length(line):
-    return str(len(line))
+# @app.route('/<string:line>')
+# def length(line):
+#     return str(len(line))
 
 
 @app.route('/students/')
@@ -97,6 +107,8 @@ def show_news():
             {'title': 'Вторая новость', 'paper': 'Тут должно быть содержимое второй новости.', 'date': '2024-02-11, 14:42'},
             {'title': 'Третья новость', 'paper': 'Эта задача ушла на домашнее задание.', 'date': '2024-02-12, 10:01'}]
     return render_template('news.html', context=news)
+
+
 
 
 if __name__ == '__main__':
