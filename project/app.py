@@ -14,6 +14,12 @@ from flask import Flask
 ○ страницу "contact".
 '''
 
+'''
+Задание №3
+Написать функцию, которая будет принимать на вход два
+числа и выводить на экран их сумму.
+'''
+
 app = Flask(__name__)
 
 
@@ -31,6 +37,11 @@ def about():
 @app.route('/contacts/')
 def contacts():
     return "My contacts"
+
+
+@app.route('/<int:number1>+<int:number2>')
+def sum_numbers(number1, number2):
+    return str(number1 + number2)
 
 
 if __name__ == '__main__':
