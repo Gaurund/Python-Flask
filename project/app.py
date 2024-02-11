@@ -33,6 +33,17 @@ from flask import Flask, render_template
 абзацем "Привет, мир!".
 '''
 
+'''
+Задание №6
+Написать функцию, которая будет выводить на экран HTML
+страницу с таблицей, содержащей информацию о студентах.
+
+Таблица должна содержать следующие поля: "Имя",
+"Фамилия", "Возраст", "Средний балл".
+
+Данные о студентах должны быть переданы в шаблон через
+контекст.
+'''
 
 app = Flask(__name__)
 
@@ -61,6 +72,13 @@ def sum_numbers(number1, number2):
 @app.route('/<string:line>')
 def length(line):
     return str(len(line))
+
+
+@app.route('/students/')
+def show_students():
+    names = [{'name': 'Иван', 'lastname': 'Иванов', 'age': 18},
+             {'name': 'Сергей', 'lastname': 'Сергеев', 'age': 19}]
+    return render_template('students.html', context=names)
 
 
 if __name__ == '__main__':
