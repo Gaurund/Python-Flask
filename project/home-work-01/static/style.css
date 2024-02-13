@@ -20,6 +20,13 @@ body {
     padding: 0 20px;
 }
 
+.content {
+    display: flex;
+    width: 818px;
+    margin: 0 auto;
+    justify-content: center;
+}
+
 .clothes {
     display: flex;
     justify-content: center;
