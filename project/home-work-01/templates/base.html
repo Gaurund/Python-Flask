@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Магазин{% endblock %}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    {% block header %}
+    <header>
+        <div class="header">Онлайн магазин одежды</div>
+    </header>
+    {% endblock %}
+    {% block menu %}
+    <div class="menu">
+        <a href="{{ url_for('clothes') }}">Одежда</a>
+        <a href="{{ url_for('shoes') }}">Обувь</a>
+    </div>
+    {% endblock %}
+    {% block content %}
+    <div class="content">
+        <p>Добро пожаловать в наш онлайн магазин одежды</p>
+    </div>
+    {% endblock %}
+    {% block footer %}
+    <div class="footer">
+        <div class="copyright">
+            <p>&copy; 2024 г. корпорация "ДикияЯгоды"</p>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

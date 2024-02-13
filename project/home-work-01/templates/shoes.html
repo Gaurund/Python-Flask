@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Обувь
+{% endblock %}
+
+{% block content %}
+    <div class="caption"><h1>Обувь</h1></div>
+    <div class="shoes">
+
+    {% for item in context %}
+        <div class="item">
+            <div class="name">
+                {{ item.name }}
+            </div>
+            <div class="pic">
+                 <img src="{{ item.pic_url }}" alt="{{ item.name }}">
+            </div>
+            <div class="annotation">
+                {{ item.annotation }}
+            </div>
+            <div class="price">
+                <p>{{ item.price }} руб.</p>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

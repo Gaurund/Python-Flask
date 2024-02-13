@@ -1,0 +1,110 @@
+body {
+    font-family: sans-serif;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    font-size: x-large;
+    padding: 10px 0;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    background-color: antiquewhite;
+}
+
+.menu a {
+    padding: 0 20px;
+}
+
+.clothes {
+    display: flex;
+    justify-content: center;
+}
+
+.caption {
+    display: flex;
+    justify-content:center;
+}
+
+.clothes .item {
+    border: dotted gray 1px;
+    padding: 10px;
+    margin: 10px;
+    }
+
+.clothes .item .name {
+    font-size: larger;
+    font-weight: 600;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.clothes .item .pic {
+    padding: 5px;
+}
+
+.clothes .item .pic img {
+    width: 200px;
+    height: 200px;
+
+}
+
+.clothes .item .price {
+    color: gray;
+    font-style: italic;
+    justify-content: right;
+    display: flex;
+}
+
+.shoes {
+    display: flex;
+    width: 818px;
+    margin: 0 auto;
+    flex-direction: column;
+}
+
+.shoes .item .name {
+    font-size: large;
+    font-style: italic;
+}
+
+.shoes .item {
+    border-top: gainsboro 1px solid;
+    padding: 20px 10px 5px;
+}
+
+.shoes .item .pic {
+    padding: 5px 30px 5px 0px;
+    clear: left;
+    float: left;
+}
+
+.shoes .item .pic img {
+    width: 200px;
+}
+
+.shoes .item .annotation {
+    color: gray;
+    clear: right;
+}
+
+.shoes .item .price {
+    float: left;
+    font-size: xx-large;
+    font-style: italic;
+    color: gray;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    color: gainsboro;
+    font-style: italic;
+    border-top: solid 1px;
+    padding-top: 20px;
+    margin-top: 20px;
+}
