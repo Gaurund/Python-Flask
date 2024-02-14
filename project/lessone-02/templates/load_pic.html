@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ super() }} - {{ title }}
+{% endblock %}
+
+{% block content %}
+    <div>
+    <form name="upload_pic" method="post" enctype="multipart/form-data">
+        <!-- <img src="{{ url_for('static', filename='images/1.jpg') }}" alt=""> -->
+        <label>Форма для отправки изображений</label>
+        <input type="file" name="load-pic-file">
+        <input type="submit" value="Загрузить">
+    </form>
+    </div>
+{% endblock %}
