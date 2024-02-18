@@ -1,31 +1,21 @@
 from flask import Flask, render_template, request, flash, redirect, url_for, make_response
 
-'''
-Задание 
-
-Создать страницу, на которой будет форма для ввода
-имени и электронной почты, при отправке которой
-будет создан cookie-файл с данными пользователя,
-а также будет произведено перенаправление
-на страницу приветствия, где будет отображаться имя пользователя.
-
-На странице приветствия должна быть кнопка «Выйти»,
- при нажатии на которую будет удалён cookie-файл
- с данными пользователя и произведено перенаправление
- на страницу ввода имени и электронной почты.
-'''
-
 app = Flask(__name__)
 app.secret_key = b'94dc38deee56cf4e4e64530d5c9d09f3e6295e7ee7c3811eb8c2c88f8d76b0db'
 
 
 @app.route('/')
 def index():
-    context = {'title': 'Вход'}
-    response = make_response("Coockie установлен")
-    response.set_cookie('username', 'admin')
+    context = {
+        'title': 'Вход',
+        'name': 'Voldemort'
+    }
+    response = make_response(render_template('main.html', **context))
+    response.headers['new_head'] = 'New-value'
+    response.set_cookie('username', context['name'])
     # return render_template('index.html', **context)
     return response
+
 
 @app.route('/getcookie/')
 def get_cookies():
