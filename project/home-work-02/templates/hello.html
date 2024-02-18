@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ super() }} - {{ title }}
+{% endblock %}
+
+{% block content %}
+    <div>
+        <p>Привет, пользователь. {{ name }}</p>
+    </div>
+{% endblock %}

@@ -1,5 +1,9 @@
+header {
+    font-size: xx-large;
+    padding: 20px;
+}
+
 .content {
-    padding: 50px 10px;
     font-size: large;
     }
 

@@ -1,5 +1,4 @@
-from flask import Flask, render_template
-
+from flask import Flask, render_template, request, flash
 
 '''
 Задание 
@@ -21,7 +20,20 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    context = {'title': 'index'}
+    context = {'title': 'Вход'}
+    return render_template('index.html', **context)
+
+
+@app.route('/sumbit', methods=['GET', 'POST'])
+def submit():
+    context = {'title': 'Добро пожаловать'}
+    if request.method == 'POST':
+        if not request.form['user-name']:
+            flash("Ввод имени обязателен!", "danger")
+            return render_template('hello.html', **context)
+        name = request.form.get('name')
+        context['name'] = name
+        return render_template('hello.html', **context)
     return render_template('index.html', **context)
 
 

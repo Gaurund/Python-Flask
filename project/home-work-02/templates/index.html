@@ -6,9 +6,9 @@
 
 {% block content %}
     <div class="content">
-    <form name="login" method="post">
-        <input type="text" name="user-name" placeholder="Введите имя">
-        <input type="text" name="password" placeholder="Введите пароль">
+    <form name="login" method="post" action="/submit">
+        <input type="text" name="name" placeholder="Введите имя">
+        <input type="text" name="email" placeholder="Введите ваш e-mail">
         <input type="submit" value="Войти">
     </form>
     </div>
