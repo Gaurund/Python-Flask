@@ -24,11 +24,14 @@ def index():
     return render_template('index.html', **context)
 
 
-@app.route('/submit', methods=['GET', 'POST'])
-def submit():
-    if request.method == 'POST':
-        name = request.form.get('name')
-        return f'Hello {name}'
+@app.post('/submit')
+def submit_post():
+    name = request.form.get('name')
+    return f'Hello {name}'
+
+
+@app.get('/submit')
+def submit_get():
     return render_template('form.html')
 
 
