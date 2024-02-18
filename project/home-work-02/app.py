@@ -24,18 +24,13 @@ def index():
     return render_template('index.html', **context)
 
 
-@app.route('/sumbit', methods=['GET', 'POST'])
+@app.route('/submit', methods=['GET', 'POST'])
 def submit():
-    context = {'title': 'Добро пожаловать'}
     if request.method == 'POST':
-        if not request.form['user-name']:
-            flash("Ввод имени обязателен!", "danger")
-            return render_template('hello.html', **context)
         name = request.form.get('name')
-        context['name'] = name
-        return render_template('hello.html', **context)
-    return render_template('index.html', **context)
+        return f'Hello {name}'
+    return render_template('form.html')
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
