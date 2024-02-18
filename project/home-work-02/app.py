@@ -39,6 +39,9 @@ def submit_get():
 @app.route('/form/', methods=['GET', 'POST'])
 def form():
     if request.method == 'POST':
+        if not request.form['name']:
+            flash('Введите имя!', 'danger')
+            return redirect(url_for('form'))
         flash('Форма успешно отправлена!', 'success')
         return redirect(url_for('form'))
     return render_template('flash_form.html')
