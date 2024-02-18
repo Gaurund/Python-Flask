@@ -13,3 +13,20 @@ header {
     margin: 5px;
     width: 300px;
 }
+
+.alert {
+    width: auto;
+    padding: 10px 50px;
+    margin: 10px 0;
+    font-size: xx-large;
+}
+
+.alert-success {
+    background-color: #b4ffb9;
+    color: green;
+}
+
+.alert-danger {
+    background-color: #ffe3e3;
+    color: #b14444;
+    }
