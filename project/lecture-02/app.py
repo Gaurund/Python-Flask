@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for, make_response
 
 '''
 Задание 
@@ -22,7 +22,16 @@ app.secret_key = b'94dc38deee56cf4e4e64530d5c9d09f3e6295e7ee7c3811eb8c2c88f8d76b
 @app.route('/')
 def index():
     context = {'title': 'Вход'}
-    return render_template('index.html', **context)
+    response = make_response("Coockie установлен")
+    response.set_cookie('username', 'admin')
+    # return render_template('index.html', **context)
+    return response
+
+@app.route('/getcookie/')
+def get_cookies():
+    # получаем значение cookie
+    name = request.cookies.get('username')
+    return f"Значение cookie: {name}"
 
 
 @app.post('/submit')
