@@ -1,4 +1,4 @@
-from flask import Flask, make_response, render_template
+from flask import Flask, make_response, render_template, request, flash, redirect, url_for
 
 '''
 Задание
@@ -27,14 +27,39 @@ def index():
     return render_template('index.html', **context)
 
 
-@app.route('/hello/', methods=['GET','POST'])
+@app.route('/hello/', methods=['GET', 'POST'])
 def hello():
+    if request.method == 'GET':
+        return redirect(url_for('index'))
+    if not request.form['name']:
+        flash('Необходимо ввести имя...', 'danger')
+        return redirect(url_for('index'))
+    if not request.form['email']:
+        flash('Необходимо ввести почту...', 'danger')
+        return redirect(url_for('index'))
+
+    name = request.form.get('name')
+    email = request.form.get('email')
     context = {
         'title': 'Приветствие',
+        'name': name,
+        'email': email
     }
     response = make_response(render_template('hello.html', **context))
-    response.set_cookie('username', context['name'])
-    response.set_cookie('email', context['email'])
+    response.set_cookie('username', name)
+    response.set_cookie('email', email)
+    return response
+
+
+@app.route('/delete_cookies/')
+def delete_cookies():
+    context = {
+        'title': 'Прощание'
+    }
+    flash('Кукисы успешно удалены. До свидания!', 'success')
+    response = make_response(render_template('index.html', **context))
+    response.delete_cookie('username')
+    response.delete_cookie('email')
     return response
 
 
