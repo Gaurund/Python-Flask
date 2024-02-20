@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 
-class Faculty:
+class Faculty(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False)
     students = db.relationship('Student', backref='student', lazy=True)
@@ -12,7 +12,7 @@ class Faculty:
         return f'Faculty({self.id}, {self.name})'
 
 
-class Student:
+class Student(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(30), nullable=False)
     last_name = db.Column(db.String(30), nullable=False)

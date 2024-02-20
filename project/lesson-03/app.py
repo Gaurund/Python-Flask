@@ -1,6 +1,7 @@
+import random
+
 from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
-import models
+from models import *
 
 '''
 Задание №1
@@ -19,7 +20,6 @@ import models
 app = Flask(__name__)
 app.config['SECRET_KEY'] = b'cf1d7e9578733c0ad1c040e081cd19b542bed43e98dab1d22abd0fbfe2fe71f8'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///university.db'
-db = SQLAlchemy(app)
 
 db.init_app(app)
 
@@ -32,12 +32,28 @@ def init_db():
 
 @app.cli.command('fill-t1')
 def fill_task1_tables():
-    for i in range(1, 11):
-        new_student = models.Student()
+    for i in range(1,6):
+        new_faculty = Faculty(
+            name=f'Faculty{i}'
+        )
+        db.session.add(new_faculty)
+    db.session.commit()
 
+    for i in range(1, 11):
+        new_student = Student(
+            first_name=f'First_name{i}',
+            last_name=f'Last_name{i}',
+            age=random.randint(10,90),
+            gender=random.choice([True, False]),
+            group=random.randint(100,200),
+            faculty_id=random.randint(1,5)
+        )
+        db.session.add(new_student)
+    db.session.commit()
+    print('OK')
 
 @app.route('/')
-@app.route('index')
+@app.route('/index/')
 def index():
     return render_template('index.html')
 
