@@ -17,5 +17,29 @@ def init_db():
     print('OK')
 
 
+@app.cli.command("add-john")
+def add_user():
+    user = User(username='john', email='john@example.com')
+    db.session.add(user)
+    db.session.commit()
+    print('John add in DB!')
+
+
+@app.cli.command("edit-john")
+def edit_user():
+    user = User.query.filter_by(username='john').first()
+    user.email = 'new_email@example.com'
+    db.session.commit()
+    print('Edit John mail in DB!')
+
+
+@app.cli.command("del-john")
+def del_user():
+    user = User.query.filter_by(username='john').first()
+    db.session.delete(user)
+    db.session.commit()
+    print('Delete John from DB!')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
