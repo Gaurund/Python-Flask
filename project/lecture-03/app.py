@@ -1,7 +1,8 @@
 from datetime import datetime, timedelta
 from flask_wtf import FlaskForm
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 from models import db, User, Post, Comment
+from forms import LoginForm, RegistrationForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = b'bc554e95290c3a18549fd9c061750ca7dcd1dd794d4ebe4ae4c2e2d7709325af'
@@ -100,6 +101,27 @@ def get_posts_last_week():
               'created_at': post.created_at} for post in posts])
     else:
         return jsonify({'error': 'Posts not found'})
+
+
+@app.route('/login/', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if request.method == 'POST' and form.validate():
+        # Обработка данных из формы
+        pass
+    return render_template('login.html', form=form)
+
+
+@app.route('/register/', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if request.method == 'POST' and form.validate():
+        # Обработка данных из формы
+        email = form.email.data
+        password = form.password.data
+        print(email, password)
+        ...
+    return render_template('register.html', form=form)
 
 
 if __name__ == '__main__':
