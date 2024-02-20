@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ super() }} - {{ title }}
+{% endblock %}
+
+{% block content %}
+{% if students %}
+<table>
+    {% for student in students %}
+    <tr>
+        <td>{{ student.id }}</td>
+        <td>{{ student.first_name }}</td>
+        <td>{{ student.last_name }}</td>
+        <td>{{ student.age }}</td>
+        <td>{{ student.gender }}</td>
+        <td>{{ student.group }}</td>
+        <td>{{ student.faculty.name }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<h1>Студенты отсутствуют</h1>
+{% endif %}
+{% endblock %}

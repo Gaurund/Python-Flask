@@ -17,6 +17,18 @@ from models import *
 студентов с указанием их факультета.
 '''
 
+'''
+Задание №2
+Создать базу данных для хранения информации о книгах в библиотеке.
+База данных должна содержать две таблицы: "Книги" и "Авторы".
+В таблице "Книги" должны быть следующие поля: id, название, год издания,
+количество экземпляров и id автора.
+В таблице "Авторы" должны быть следующие поля: id, имя и фамилия.
+Необходимо создать связь между таблицами "Книги" и "Авторы".
+Написать функцию-обработчик, которая будет выводить список всех книг с
+указанием их авторов.
+'''
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = b'cf1d7e9578733c0ad1c040e081cd19b542bed43e98dab1d22abd0fbfe2fe71f8'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///university.db'
@@ -32,7 +44,7 @@ def init_db():
 
 @app.cli.command('fill-t1')
 def fill_task1_tables():
-    for i in range(1,6):
+    for i in range(1, 6):
         new_faculty = Faculty(
             name=f'Faculty{i}'
         )
@@ -43,19 +55,25 @@ def fill_task1_tables():
         new_student = Student(
             first_name=f'First_name{i}',
             last_name=f'Last_name{i}',
-            age=random.randint(10,90),
+            age=random.randint(10, 90),
             gender=random.choice([True, False]),
-            group=random.randint(100,200),
-            faculty_id=random.randint(1,5)
+            group=random.randint(100, 200),
+            faculty_id=random.randint(1, 5)
         )
         db.session.add(new_student)
     db.session.commit()
     print('OK')
 
+
 @app.route('/')
 @app.route('/index/')
 def index():
-    return render_template('index.html')
+    students = Student.query.all()
+    context = {
+        'students': students,
+        'title': 'Студентики'
+    }
+    return render_template('task1.html', **context)
 
 
 def result(message):

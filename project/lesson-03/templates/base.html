@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Home{% endblock %}</title>
+</head>
+<body>
+    {% block header %}
+    <header>
+        Моя шапка
+    </header>
+    {% endblock %}
+    {% block menu %}
+    <div class="menu">
+        <h1>Меню</h1>
+    </div>
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+    {% block footer %}
+    <div class="footer">
+        Подвал
+    </div>
+    {% endblock %}
+</body>
+</html>
