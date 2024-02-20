@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Подтверждение</h1>
+{% if users %}
+<table class="table table-hover table-bordered table-striped">
+    {% for user in users %}
+    <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.first_name }}</td>
+        <td>{{ user.last_name }}</td>
+        <td>{{ user.email }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<h2>База пуста</h2>
+{% endif %}
+<button class="btn"><a href="{{ url_for('index')}}" class="btn btn-primary">Вернуться на страницу входа</a></button>
+{% endblock %}
