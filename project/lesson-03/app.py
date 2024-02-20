@@ -65,9 +65,40 @@ def fill_task1_tables():
     print('OK')
 
 
+@app.cli.command('fill-t2')
+def fill_task2_tables():
+    db.create_all()
+    for i in range(1, 6):
+        author = Author(
+            first_name =f'Author_{i}',
+            last_name = f'Author_{i}_'
+        )
+        db.session.add(author)
+    db.session.commit()
+
+    for i in range(1, 11):
+        book = Book(
+            title=f'Book_{i}',
+            year=random.randint(1800, 2020),
+            amount=random.randint(1000, 2000000),
+            author_id=random.randint(1, 5)
+        )
+        db.session.add(book)
+    db.session.commit()
+    print('OK')
+
 @app.route('/')
-@app.route('/index/')
-def index():
+def task2():
+    books = Book.query.all()
+    context = {
+        'books': books,
+        'title': 'Книжки'
+    }
+    return render_template('task2.html', **context)
+
+
+@app.route('/task1/')
+def task1():
     students = Student.query.all()
     context = {
         'students': students,

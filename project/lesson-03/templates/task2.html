@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ super() }} - {{ title }}
+{% endblock %}
+
+{% block content %}
+{% if books %}
+<table>
+    {% for book in books %}
+    <tr>
+        <td>{{ book.id }}</td>
+        <td>{{ book.title }}</td>
+        <td>{{ book.year }}</td>
+        <td>{{ book.amount }}</td>
+        <td>{{ book.author.first_name }} {{ book.author.last_name }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<h1>Книги отсутствуют</h1>
+{% endif %}
+{% endblock %}

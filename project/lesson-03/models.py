@@ -40,4 +40,7 @@ class Author(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(30), nullable=False)
     last_name = db.Column(db.String(30), nullable=False)
-    books = db.relationship('Book', backref='book', lazy=True)
+    books = db.relationship('Book', backref='author', lazy=True)
+
+    def __repr__(self):
+        return f'Book({self.id}, {self.first_name}, {self.last_name}, {self.books}'
