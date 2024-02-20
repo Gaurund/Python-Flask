@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from models import db, User, Post, Comment
 
 app = Flask(__name__)
@@ -56,6 +56,20 @@ def fill_tables():
         new_post = Post(title=f'Post title {post}', content=f'Post content {post}', author=author)
         db.session.add(new_post)
     db.session.commit()
+
+
+@app.route('/users/')
+def all_users():
+    users = User.query.all()
+    context = {'users': users}
+    return render_template('users.html', **context)
+
+
+@app.route('/users/<username>/')
+def users_by_username(username):
+    users = User.query.filter(User.username == username).all()
+    context = {'users': users}
+    return render_template('users.html', **context)
 
 
 if __name__ == '__main__':
