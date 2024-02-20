@@ -1,9 +1,10 @@
 from datetime import datetime, timedelta
-
+from flask_wtf import FlaskForm
 from flask import Flask, render_template, jsonify
 from models import db, User, Post, Comment
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = b'bc554e95290c3a18549fd9c061750ca7dcd1dd794d4ebe4ae4c2e2d7709325af'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'
 db.init_app(app)
 
