@@ -96,18 +96,20 @@ def task4(path_):
     threads = []
     start_time = time.time()
     for file in files:
-        thread = threading.Thread(target=count_words, args=[file, start_time])
+        thread = threading.Thread(target=count_words, args=[file])
         threads.append(thread)
         thread.start()
     for thread in threads:
         thread.join()
+    print(f'Time spend in total {time.time() - start_time:.6f} seconds ')
 
 
-def count_words(file, start_time):
+def count_words(file):
+    start_time = time.time()
     with open(file, encoding='utf-8') as f:
         text = f.read()
 
-    print(f'In file "{file.name}" is {len(text.split())} words ')
+    print(f'In file "{file.name}" is {len(text.split())} words. Counted in {time.time() - start_time:.6f} seconds ')
 
 
 def main():
