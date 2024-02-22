@@ -13,15 +13,30 @@
 — Программа должна выводить в консоль информацию о времени
   скачивания каждого изображения и общем времени выполнения программы.
 '''
+
 import argparse
+import os
+import time
+import requests
+
+
+def cut_name(url):
+    filename = url.split('/')
+    return filename[-1]
 
 
 def download_file(url):
-    pass
+    response = requests.get(url)
+    filename = cut_name(url)
+    start_time = time.time()
+    with open(os.path.join('./download/', filename), "wb") as f:
+        f.write(response.content)
+    print(f"Downloaded {url} in {time.time() - start_time:.6f} seconds")
 
 
 def download_list_of_files(urls):
-    pass
+    for file in urls:
+        download_file(file)
 
 
 def print_line(messages):
@@ -42,4 +57,6 @@ if __name__ == '__main__':
     #     print('Успех')
     # else:
     #     print('Nope!')
-    print_line(args.line)
+    download_list_of_files(args.line)
+    # download_file(args.line[0])
+    # cut_name(args.line[0])
