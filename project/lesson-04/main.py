@@ -5,8 +5,7 @@
 - После загрузки данных нужно записать их в отдельные файлы.
 - Используйте потоки.
 '''
-
-
+import threading
 import time
 import os
 import requests
@@ -21,9 +20,14 @@ def download(url, start_time):
 
 
 def task1(urls):
+    threads = []
     start_time = time.time()
     for url in urls:
-        download(url, start_time)
+        thread = threading.Thread(target=download, args=[url, start_time])
+        threads.append(thread)
+        thread.start()
+    for thread in threads:
+        thread.join()
 
 
 def main():
