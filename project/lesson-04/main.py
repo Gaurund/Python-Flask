@@ -13,7 +13,7 @@ import requests
 
 def download(url, start_time):
     response = requests.get(url)
-    filename = 'sync_' + url.replace('https://', '').replace('.', '_').replace('/', '') + '.html'
+    filename = 'threading_' + url.replace('https://', '').replace('.', '_').replace('/', '') + '.html'
     with open(os.path.join('./download/', filename), "w", encoding='utf-8') as f:
         f.write(response.text)
     print(f"Downloaded {url} in {time.time() - start_time:.2f} seconds")
