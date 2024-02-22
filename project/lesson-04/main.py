@@ -1,3 +1,13 @@
+import threading
+import time
+import os
+from pathlib import Path
+
+import requests
+import asyncio
+import aiohttp
+from multiprocessing import Process
+
 '''
 Задание №1
 - Написать программу, которая считывает список из 10 URL-адресов
@@ -24,13 +34,13 @@
 � Используйте асинхронный подход.
 '''
 
-import threading
-import time
-import os
-import requests
-import asyncio
-import aiohttp
-from multiprocessing import Process
+'''
+Задание №4
+� Создать программу, которая будет производить подсчет
+количества слов в каждом файле в указанной директории и
+выводить результаты в консоль.
+� Используйте потоки.
+'''
 
 
 async def download_async(url, start_time):
@@ -81,6 +91,25 @@ async def task3(urls, start_time):
     await asyncio.gather(*tasks)
 
 
+def task4(path_):
+    files = [file for file in path_.iterdir() if file.is_file()]
+    threads = []
+    start_time = time.time()
+    for file in files:
+        thread = threading.Thread(target=count_words, args=[file, start_time])
+        threads.append(thread)
+        thread.start()
+    for thread in threads:
+        thread.join()
+
+
+def count_words(file, start_time):
+    with open(file, encoding='utf-8') as f:
+        text = f.read()
+
+    print(f'In file "{file.name}" is {len(text.split())} words ')
+
+
 def main():
     urls = ['https://www.google.ru/',
             'https://gb.ru/',
@@ -100,5 +129,8 @@ def main():
 
     asyncio.run(task3(urls, start_time))
 
+
 if __name__ == '__main__':
-    main()
+    # main()
+    path = Path(Path.cwd() / 'download')
+    task4(path)

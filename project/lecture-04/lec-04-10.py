@@ -2,7 +2,8 @@ import requests
 import threading
 import time
 
-urls = ['https://www.google.ru/',
+urls = [
+        'https://www.google.ru/',
         'https://gb.ru/',
         'https://ya.ru/',
         'https://www.python.org/',
