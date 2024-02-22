@@ -27,7 +27,6 @@ async def main():
         tasks.append(task)
     await asyncio.gather(*tasks)
 
-
 start_time = time.time()
 
 loop = asyncio.get_event_loop()
