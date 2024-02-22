@@ -16,4 +16,6 @@ if __name__ == '__main__':
         p.start()
     for p in processes:
         p.join()
+
+
     print("Все процессы завершили работу")
