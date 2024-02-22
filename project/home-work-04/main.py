@@ -15,9 +15,13 @@
 '''
 
 import argparse
+import asyncio
 import os
+import threading
 import time
+import aiohttp
 import requests
+from multiprocessing import Process
 
 
 def cut_name(url):
@@ -34,29 +38,71 @@ def download_file(url):
     print(f"Downloaded {url} in {time.time() - start_time:.6f} seconds")
 
 
+async def download_file_async(url):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            file = await response.read()
+            filename = cut_name(url)
+            start_time = time.time()
+            with open(os.path.join('./download/', filename), "wb") as f:
+                f.write(file)
+            print(f"Downloaded {url} in {time.time() - start_time:.6f} seconds")
+
+
 def download_list_of_files(urls):
     for file in urls:
         download_file(file)
 
 
-def print_line(messages):
-    for message in messages:
-        print(f'Строка: {message} ')
+def download_threads(urls):
+    threads = []
+    for url in urls:
+        thread = threading.Thread(target=download_file, args=[url])
+        threads.append(thread)
+        thread.start()
+    for thread in threads:
+        thread.join()
 
+
+def download_processes(urls):
+    processes = []
+    for url in urls:
+        process = Process(target=download_file, args=[url])
+        processes.append(process)
+        process.start()
+    for process in processes:
+        process.join()
+
+
+async def download_async(urls):
+    files = []
+    for url in urls:
+        task = asyncio.ensure_future(download_file_async(url))
+        files.append(task)
+    await asyncio.gather(*files)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         prog='FileDownloader',
-        description='The program take in URL strings and request this files.'
+        description='''The program takes in URL strings and requests those files. 
+        Use --mode key to define (a)synchronous or (p)rocesses or (t)hreading method.'''
     )
-    # parser.add_argument('-m', '--mode', type=str, nargs=1, help="Выберите режим.")
-    parser.add_argument('line', type=str, nargs='*', help="Введите строку.")
+    parser.add_argument('line', type=str, nargs='*', help="Input an URL address(es)")
+    parser.add_argument('-m', '--method', type=str, nargs=1,
+                        help="Choose a method: (a)synchronous or (p)rocesses or (t)hreading.")
     args = parser.parse_args()
-    # print(args.mode)
-    # if args.mode[0] == 'a':
-    #     print('Успех')
-    # else:
-    #     print('Nope!')
-    download_list_of_files(args.line)
-    # download_file(args.line[0])
-    # cut_name(args.line[0])
+    start_time = time.time()
+    if args.method:
+        if args.method[0] == 't':
+            print('Use threads:')
+            download_threads(args.line)
+        elif args.method[0] == 'p':
+            print('Use processes:')
+            download_processes(args.line)
+        elif args.method[0] == 'a':
+            print('Use asynchronous:')
+            asyncio.run(download_async(args.line))
+    else:
+        print('Do it like old-timers:')
+        download_list_of_files(args.line)
+    print(f'It took {time.time() - start_time:.6f} seconds to download the file(s).')
