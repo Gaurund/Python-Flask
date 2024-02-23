@@ -35,7 +35,6 @@ async def update_item(item_id: int, item: Item):
     return {"item_id": item_id, "item": item}
 
 
-
 @app.delete("/items/{item_id}")
 async def delete_item(item_id: int):
     logger.info(f'Отработал DELETE запрос для item id =s {item_id}.')
