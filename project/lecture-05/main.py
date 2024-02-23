@@ -15,6 +15,11 @@ async def read_item(item_id: int, q: str = None):
     return {"item_id": item_id}
 
 
+@app.get("/items/")
+async def read_item(skip: int = 0, limit: int = 10):
+    return {"skip": skip, "limit": limit}
+
+
 @app.get("/users/{user_id}/orders/{order_id}")
 async def read_item(user_id: int, order_id: int):
     # обработка данных
