@@ -13,10 +13,10 @@ async def root():
     return {'message': 'Hello World123'}
 
 
-@app.put("/items/{item_id}")
-async def update_item(item_id: int, item: Item):
-    logger.info(f'Отработал PUT запрос для item id = {item_id}.')
-    return {"item_id": item_id, "item": item}
+@app.delete("/items/{item_id}")
+async def delete_item(item_id: int):
+    logger.info(f'Отработал DELETE запрос для item id =s {item_id}.')
+    return {"item_id": item_id}
 
 
 @app.get('/items/{item_id}')
