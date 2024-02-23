@@ -16,7 +16,7 @@ async def read_item(item_id: int, q: str = None):
 
 
 @app.get("/items/")
-async def read_item(skip: int = 0, limit: int = 10):
+async def skip_limit(skip: int = 0, limit: int = 10):
     return {"skip": skip, "limit": limit}
 
 
