@@ -12,57 +12,86 @@
 Реализуйте валидацию данных запроса и ответа.
 '''
 
+'''
+Задание №2
+Создать API для получения списка фильмов по жанру. 
+Приложение должно иметь возможность получать 
+список фильмов по заданному жанру.
+Создайте модуль приложения и настройте сервер и маршрутизацию.
+Создайте класс Movie с полями
+    id, title, description и genre.
+Создайте список movies для хранения фильмов.
+Создайте маршрут для получения списка фильмов по жанру (метод GET).
+Реализуйте валидацию данных запроса и ответа.
+'''
+
 from fastapi import FastAPI
 from pydantic import BaseModel
+from random import choice
 
 app = FastAPI()
 
 
-class Task(BaseModel):
+class Movie(BaseModel):
     id: int
     title: str
     description: str
-    status: str
+    genre: str
 
 
-tasks = []
+movies = []
+genres = [
+    "Ужасы",
+    "Триллер",
+    "Комедия",
+    "Исторический",
+    "Фантастика"
+]
 
 for i in range(0, 10):
-    new_task = Task(
+    new_movie = Movie(
         id=i,
         title=f'Title {i}',
         description=f'Description {i}',
-        status=f'Status {i}'
+        genre=choice(genres)
     )
-    tasks.append(new_task)
+    movies.append(new_movie)
 
 
 @app.get('/')
 async def root():
-    return tasks
+    return movies
+
+
+@app.get('/genre/{genre}')
+async def get_by_genre(genre: str):
+    result = []
+    for movie in movies:
+        if movie.genre == genre:
+            result.append(movie)
+    return result if result else {'message': 'No movies in such genre was found'}
 
 
 @app.post('/new/')
-async def create_task(task: Task):
-    tasks.append(task)
-    return tasks
+async def create_movie(movie: Movie):
+    movies.append(movie)
+    return movies
 
 
-@app.put('/task/{task_id}')
-async def change_task(task_id: int, task: Task):
-    for e in tasks:
-        if e.id == task_id:
-            tasks.remove(e)
-            tasks.append(task)
-            # e = task
-            return tasks
-    return {'message': 'Task not found'}
+@app.put('/movies/{movie_id}')
+async def edit_movie(movie_id: int, movie: Movie):
+    for e in movies:
+        if e.id == movie_id:
+            movies.remove(e)
+            movies.append(movie)
+            return movies
+    return {'message': 'Movie not found'}
 
 
-@app.delete('/delete/{task_id}')
-async def delete_task(task_id: int):
-    for e in tasks:
-        if e.id == task_id:
-            tasks.remove(e)
-            return tasks
-    return {'message': 'Task not found'}
+@app.delete('/delete/{movie_id}')
+async def delete_movie(movie_id: int):
+    for e in movies:
+        if e.id == movie_id:
+            movies.remove(e)
+            return movies
+    return {'message': 'Movie not found'}
